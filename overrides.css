@@ -1,0 +1,147 @@
+/* Essenza Brand Overrides */
+
+:root {
+    /* Colors */
+    --essenza-primary: #0D2A3A;
+    /* Deep Blue */
+    --essenza-secondary: #5C7A89;
+    /* Blue Grey */
+    --essenza-background: #F4F6F8;
+    /* Ice White */
+    --essenza-cards: #FFFFFF;
+    /* Pure White */
+    --essenza-text-secondary: #8C8C8C;
+    /* Grey */
+    --essenza-cta: #2F5D50;
+    /* Green */
+    --essenza-cta-text: #FFFFFF;
+    /* White */
+    --essenza-alert: #DC2626;
+    /* Red for Flash Offer */
+}
+
+/* Backgrounds */
+body,
+#root {
+    background-color: var(--essenza-background) !important;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+}
+
+/* Top Bar */
+header>div:first-child,
+.bg-primary.text-primary-foreground {
+    background-color: var(--essenza-primary) !important;
+    color: #FFFFFF !important;
+}
+
+/* Header / Navbar */
+header {
+    background-color: var(--essenza-background) !important;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+/* Cards */
+.bg-card,
+.card,
+.bg-white {
+    background-color: var(--essenza-cards) !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Typography Overrides */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--essenza-primary) !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.025em !important;
+}
+
+p,
+span,
+div {
+    /* Default text color adjustment if needed, but keeping specificity low */
+}
+
+/* Hero Section Specifics */
+/* Title */
+h1 {
+    color: var(--essenza-primary) !important;
+}
+
+/* Price */
+.text-3xl,
+.text-4xl,
+[class*="text-primary"] {
+    color: var(--essenza-primary) !important;
+}
+
+/* Old Price */
+.line-through {
+    color: var(--essenza-text-secondary) !important;
+}
+
+/* Mobile Sticky Button Container and Main CTA */
+button[class*="bg-primary"],
+button:contains("Comprar"),
+button:contains("Add to cart"),
+#floating-btn-container-unique-v3 button {
+    background-color: var(--essenza-cta) !important;
+    color: var(--essenza-cta-text) !important;
+    border-radius: 8px !important;
+    /* Rounded corners */
+    text-transform: uppercase !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.05em !important;
+}
+
+/* Flash Offer Badge */
+div[class*="bg-destructive"] {
+    background-color: var(--essenza-alert) !important;
+    color: #FFFFFF !important;
+    font-weight: bold;
+}
+
+/* Product Variants (Quantity Boxes/Selectors) */
+.border-primary {
+    border-color: var(--essenza-primary) !important;
+    border-width: 2px !important;
+}
+
+.border-input,
+.border-gray-200 {
+    border-color: #E5E7EB !important;
+    /* Light grey default */
+}
+
+/* Selected Element Border */
+[aria-selected="true"],
+.selected,
+.ring-primary {
+    border-color: var(--essenza-primary) !important;
+    ring-color: var(--essenza-primary) !important;
+}
+
+/* Most Popular Badge */
+.bg-primary {
+    background-color: var(--essenza-primary) !important;
+}
+
+/* Hide Specific Sections (Safe Delivery / Guarantee if they exist by common keywords) */
+/* Note: Since we don't have exact selectors for these, we'll try to match by content in JS or generic classes if possible.
+   For now, we rely on JS to hide them. */
+
+/* Icons */
+svg {
+    color: var(--essenza-secondary);
+}
+
+/* Hardcoded Tailwind Color Overrides (Footer & CTA) */
+[class*="bg-[#4F695B]"] {
+    background-color: var(--essenza-primary) !important;
+    color: #FFFFFF !important;
+}

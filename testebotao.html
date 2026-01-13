@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oferta Especial - Máquina Ferramenta Industrial</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --hover-color: #1d4ed8;
+            --bg-color: #f8fafc;
+            --text-color: #1e293b;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            max-width: 480px;
+            width: 90%;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            object-fit: cover;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #0f172a;
+        }
+
+        .price {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin: 1rem 0;
+        }
+
+        .description {
+            color: #64748b;
+            margin-bottom: 2rem;
+            line-height: 1.5;
+        }
+
+        .buy-button {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 1rem 2rem;
+            border-radius: 9999px;
+            width: 100%;
+            box-sizing: border-box;
+            transition: background-color 0.2s, transform 0.1s;
+            box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+        }
+
+        .buy-button:hover {
+            background-color: var(--hover-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px -1px rgba(37, 99, 235, 0.3);
+        }
+
+        .buy-button:active {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <img src="./tool_machine.png" alt="Máquina Ferramenta Industrial" class="product-image">
+        <h1>Centro de Usinagem Industrial CNC</h1>
+        <p class="description">Alta precisão e durabilidade para sua linha de produção. Teste de performance aprovado.
+        </p>
+        <div class="price">R$ 45.900,00</div>
+        <!-- BOTÕES DE EXEMPLO -->
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+
+            <!-- OPÇÃO 1: PRODUTO NORMAL (One-time purchase) -->
+            <!-- Link: /cart/{VARIANT_ID}:1 -->
+            <a href="https://5qxzc2-13.myshopify.com/cart/45047438409867:1" class="buy-button">
+                Comprar Kit Ferramenta (R$ 39,00)
+            </a>
+
+            <!-- OPÇÃO 2: ASSINATURA (Recharge/Bold/Native) -->
+            <!-- Link: /cart/{VARIANT_ID}:1?selling_plan={SELLING_PLAN_ID} -->
+            <a href="https://5qxzc2-13.myshopify.com/cart/45000940224651:1?selling_plan=2033614987" class="buy-button"
+                style="background-color: #059669;">
+                Assinar Gold Membership (R$ 39,90/sem)
+            </a>
+
+            <!-- OPÇÃO 3: AMBOS NO CARRINHO (Via Formulário HTML) -->
+            <!-- Esta é a forma mais robusta de adicionar múltiplos itens sem usar API/Javascript complexo -->
+            <form action="https://5qxzc2-13.myshopify.com/cart/add" method="post" target="_blank">
+
+                <!-- Item 1: Gold Membership (Com Assinatura) -->
+                <input type="hidden" name="items[0][id]" value="45000940224651">
+                <input type="hidden" name="items[0][quantity]" value="1">
+                <input type="hidden" name="items[0][selling_plan]" value="2033614987">
+
+                <!-- Item 2: Kit Ferramenta (Produto Normal) -->
+                <input type="hidden" name="items[1][id]" value="45047438409867">
+                <input type="hidden" name="items[1][quantity]" value="1">
+
+                <!-- Redirecionar direto para o Checkout -->
+                <input type="hidden" name="return_to" value="/checkout">
+
+                <button type="submit" class="buy-button"
+                    style="background-color: #475569; border: none; cursor: pointer; font-size: 1rem; font-family: inherit;">
+                    Testar: Checkout Direto (Formulário)
+                </button>
+            </form>
+
+        </div>
+    </div>
+
+</body>
+
+</html>
