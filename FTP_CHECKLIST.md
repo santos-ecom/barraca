@@ -14,7 +14,8 @@ I have created a special folder for you called `deployment_staging`.
     -   `lavadora/`
     -   `motoserra/`
     -   ...etc
-3.  Drag and drop them into `public_html` on Hostinger.
+3.  **IMPORTANT:** On the server (Hostinger), DELETE the existing `motoserra`, `lavadora`, etc directories before uploading to ensure no bad files remain.
+4.  Drag and drop the new files into `public_html`.
 
 ## 2. WHY THIS WORKS
 This folder contains the **exact** combination of files needed.

@@ -1,0 +1,18 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  DirectoryIndex index.html
+  Options -MultiViews
+
+  # 1. Force Trailing Slash (Fixes 404s like /motoserra)
+  RewriteRule ^(lavadora|lavadora2|motoserra|motoserra2)$ /$1/ [R=301,L]
+
+  # 2. Standard SPA Fallback
+  # If the requested filename exists as a file or directory, SERVE IT.
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Otherwise, serve the SPA (root index.html)
+  RewriteRule . /index.html [L]
+</IfModule>
