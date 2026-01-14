@@ -4,27 +4,21 @@
   DirectoryIndex index.html
   Options -MultiViews
 
-  # 1. FORCE TRAILING SLASH
-  # Redirect /slug to /slug/
-  RewriteCond %{REQUEST_URI} !/$
+  # 1. FORCE TRAILING SLASH (301 Redirect)
+  # Forces /motoserra -> /motoserra/
   RewriteRule ^(lavadora|lavadora2|motoserra|motoserra2)$ /$1/ [R=301,L]
 
-  # 2. WHITELIST STATIC ROUTES (Prevent SPA Fallback)
-  # If the request matches these folders, STOP rewriting and let Apache serve files.
-  # Using REQUEST_URI is often more robust against per-directory context weirdness.
-  RewriteCond %{REQUEST_URI} ^/(lavadora|lavadora2|motoserra|motoserra2)(/|$) [NC]
-  RewriteRule ^ - [L]
+  # 2. EXPLICIT INTERAL REWRITE (The "Bulletproof" Fix)
+  # Directly maps the directory URL to the file. circumventing auto-discovery issues.
+  RewriteRule ^(lavadora|lavadora2|motoserra|motoserra2)/$ $1/index.html [L]
 
-  # 3. WHITELIST ASSETS
-  RewriteCond %{REQUEST_URI} ^/assets/ [NC]
-  RewriteRule ^ - [L]
-  
-  RewriteCond %{REQUEST_URI} ^/overrides\.(css|js)$ [NC]
+  # 3. ASSETS & EXEMPTIONS
+  # If it is a real file or directory, serve it correcty.
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^ - [L]
 
   # 4. SPA FALLBACK
-  # If not a file/dir, serve root app.
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
+  # Any other route that is NOT a file/dir goes to root index.html
   RewriteRule . /index.html [L]
 </IfModule>
