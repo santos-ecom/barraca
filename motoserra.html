@@ -411,7 +411,7 @@
                                             value="2033614987"><input type="hidden" name="items[1][id]"
                                             value="45075839975563"><input type="hidden" name="items[1][quantity]"
                                             value="1"><input type="hidden" name="return_to" value="/checkout"><button
-                                            type="submit"
+                                            id="main-buy-button" type="submit"
                                             class="w-full flex items-center justify-center h-12 lg:h-14 rounded-md text-base lg:text-lg font-semibold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">Buy
                                             Now</button></form>
                                 </div>
@@ -648,8 +648,38 @@
                     }
                 });
             });
+
+            // Sticky Buy Button Logic
+            const mainBtn = document.getElementById('main-buy-button');
+            const stickyBtn = document.getElementById('sticky-cta-container');
+
+            if (mainBtn && stickyBtn) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        // Check if button is out of view and above the viewport (scrolled past)
+                        // Or just out of view? Usually sticky footer appears when you scroll PAST the button.
+                        if (!entry.isIntersecting && entry.boundingClientRect.top < 0) {
+                            stickyBtn.classList.remove('translate-y-full');
+                        } else {
+                            stickyBtn.classList.add('translate-y-full');
+                        }
+                    });
+                }, {
+                    threshold: 0
+                });
+
+                observer.observe(mainBtn);
+            }
         });
     </script>
+
+    <div id="sticky-cta-container"
+        class="fixed bottom-0 left-0 w-full bg-white border-t border-border p-4 z-50 transform translate-y-full transition-transform duration-300 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
+        <button onclick="document.getElementById('main-buy-button').scrollIntoView({behavior: 'smooth'})"
+            class="w-full bg-[#0D2A3A] text-white text-center font-bold py-4 rounded-lg text-lg uppercase shadow-md hover:bg-[#0A2230] transition-colors">
+            BUY NOW
+        </button>
+    </div>
 </body>
 
 </html>
