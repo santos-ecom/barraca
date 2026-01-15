@@ -12,8 +12,13 @@ try {
         
         $urlPath = $request.Url.LocalPath.TrimStart('/')
         if ($urlPath -eq "" -or $urlPath -eq "/") { $urlPath = "index.html" }
-        if ($urlPath -eq "motoserra") { $urlPath = "motoserra.html" }
+        
         $filePath = Join-Path $path $urlPath
+        
+        # Se for pasta, adiciona index.html
+        if (Test-Path $filePath -PathType Container) {
+            $filePath = Join-Path $filePath "index.html"
+        }
         
         # Se o arquivo não existir:
         if (-not (Test-Path $filePath -PathType Leaf)) {

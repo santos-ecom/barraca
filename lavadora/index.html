@@ -625,9 +625,7 @@
                 });
             });
 
-            // Logic for mobile thumbnails (if separate) or general
-            // Note: Mobile carousel might just use the same logic if classes match, but the structure might differ.
-            // Based on HTML, mobile thumbnails are also inside buttons
+            // Logic for mobile thumbnails
             document.querySelectorAll('.lg\\:hidden button').forEach(btn => {
                 btn.addEventListener('click', function () {
                     const imgUrl = this.querySelector('img').src;
@@ -652,8 +650,6 @@
             if (mainBtn && stickyBtn) {
                 const observer = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
-                        // Check if button is out of view and above the viewport (scrolled past)
-                        // Or just out of view? Usually sticky footer appears when you scroll PAST the button.
                         if (!entry.isIntersecting && entry.boundingClientRect.top < 0) {
                             stickyBtn.classList.remove('translate-y-full');
                         } else {
@@ -665,6 +661,91 @@
                 });
 
                 observer.observe(mainBtn);
+            }
+
+            // --- QUANTITY SELECTION LOGIC ---
+            const quantityRadios = document.querySelectorAll('div[role="radiogroup"] button[role="radio"]');
+            // Fixed selector: Added .flex-shrink-0 to distinguish from other bordered elements
+            const counterDisplay = document.querySelector('.flex.items-center.border.rounded-lg.flex-shrink-0 span');
+            const minusBtn = document.querySelector('.flex.items-center.border.rounded-lg.flex-shrink-0 button:first-child');
+            const plusBtn = document.querySelector('.flex.items-center.border.rounded-lg.flex-shrink-0 button:last-child');
+            const mainPriceDisplay = document.querySelector('.text-2xl.lg\\:text-3xl.font-bold.text-price-sale');
+            const originalPriceDisplay = document.querySelector('.text-sm.text-price-original.line-through');
+            const formQuantityInputs = document.querySelectorAll('form input[name*="[quantity]"]');
+
+            let currentQuantity = 1;
+            const pricingData = {};
+
+            // Initialize pricing data map and add listeners
+            quantityRadios.forEach(btn => {
+                const qty = parseInt(btn.value);
+                const label = btn.closest('label');
+                const sale = label.querySelector('.text-price-sale').innerText;
+                const original = label.querySelector('.text-price-original').innerText;
+                pricingData[qty] = { sale, original };
+
+                // Click listener for the button
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    updateState(qty);
+                });
+
+                // Click listener for the label (container)
+                label.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    updateState(qty);
+                });
+            });
+
+            function updateState(qty) {
+                currentQuantity = qty;
+
+                // Update Counter
+                if (counterDisplay) counterDisplay.innerText = qty;
+
+                // Update Inputs
+                formQuantityInputs.forEach(input => input.value = qty);
+
+                // Update Top Prices
+                if (pricingData[qty]) {
+                    if (mainPriceDisplay) mainPriceDisplay.innerText = pricingData[qty].sale;
+                    if (originalPriceDisplay) originalPriceDisplay.innerText = pricingData[qty].original;
+                }
+
+                // Update Visuals
+                quantityRadios.forEach(btn => {
+                    const btnQty = parseInt(btn.value);
+                    const label = btn.closest('label');
+                    const isSelected = btnQty === qty;
+
+                    btn.setAttribute('aria-checked', isSelected);
+                    btn.setAttribute('data-state', isSelected ? 'checked' : 'unchecked');
+
+                    if (isSelected) {
+                        btn.innerHTML = '<span data-state="checked" class="flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle h-2.5 w-2.5 fill-current text-current"><circle cx="12" cy="12" r="10"></circle></svg></span>';
+                        label.classList.remove('border-border', 'hover:border-primary/50');
+                        label.classList.add('border-primary', 'bg-primary/5');
+                    } else {
+                        btn.innerHTML = '';
+                        label.classList.add('border-border', 'hover:border-primary/50');
+                        label.classList.remove('border-primary', 'bg-primary/5');
+                    }
+                });
+            }
+
+            // Counter Buttons
+            if (minusBtn) {
+                minusBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (currentQuantity > 1) updateState(currentQuantity - 1);
+                });
+            }
+            if (plusBtn) {
+                plusBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (currentQuantity < 5) updateState(currentQuantity + 1);
+                });
             }
         });
     </script>
