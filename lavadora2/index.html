@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="scroll-behavior: smooth;">
 
 <head>
     <meta charset="UTF-8">
@@ -268,9 +268,10 @@
                                         &#8595; 90%</div>
                                 </div>
                                 <div class="flex items-baseline space-x-2"><span
-                                        class="text-2xl lg:text-3xl font-bold text-price-sale">$29.00</span></div>
+                                        class="text-2xl lg:text-3xl font-bold text-price-sale">$29.90</span></div>
                             </div>
-                            <div id="quantity-section" class="space-y-3">
+                            <div id="anchor-point" style="position: absolute; margin-top: -240px;"></div>
+                            <div id="quantity-section" class="space-y-3" style="scroll-margin-top: 120px;">
                                 <div class="flex items-center space-x-2"><span
                                         class="text-sm font-medium">QUANTITY:</span></div>
                                 <div role="radiogroup" aria-required="false" dir="ltr" class="grid gap-2 space-y-2"
@@ -297,7 +298,7 @@
                                                 </div>
                                             </div>
                                             <div class="text-right">
-                                                <div class="text-lg font-bold text-price-sale">$29.00</div>
+                                                <div class="text-lg font-bold text-price-sale">$29.90</div>
                                                 <div class="text-xs text-price-original line-through">$289.90</div>
                                             </div>
                                         </label></div>
@@ -319,7 +320,7 @@
                                                 </div>
                                             </div>
                                             <div class="text-right">
-                                                <div class="text-lg font-bold text-price-sale">$49.00</div>
+                                                <div class="text-lg font-bold text-price-sale">$49.90</div>
                                                 <div class="text-xs text-price-original line-through">$579.80</div>
                                             </div>
                                         </label></div>
@@ -338,7 +339,7 @@
                                                 </div>
                                             </div>
                                             <div class="text-right">
-                                                <div class="text-lg font-bold text-price-sale">$87.00</div>
+                                                <div class="text-lg font-bold text-price-sale">$79.90</div>
                                                 <div class="text-xs text-price-original line-through">$869.70</div>
                                             </div>
                                         </label></div>
@@ -357,7 +358,7 @@
                                                 </div>
                                             </div>
                                             <div class="text-right">
-                                                <div class="text-lg font-bold text-price-sale">$97.00</div>
+                                                <div class="text-lg font-bold text-price-sale">$99.90</div>
                                                 <div class="text-xs text-price-original line-through">$1159.60</div>
                                             </div>
                                         </label></div>
@@ -376,7 +377,7 @@
                                                 </div>
                                             </div>
                                             <div class="text-right">
-                                                <div class="text-lg font-bold text-price-sale">$117.00</div>
+                                                <div class="text-lg font-bold text-price-sale">$119.90</div>
                                                 <div class="text-xs text-price-original line-through">$1449.50</div>
                                             </div>
                                         </label></div>
@@ -401,14 +402,14 @@
                                                 <path d="M5 12h14"></path>
                                                 <path d="M12 5v14"></path>
                                             </svg></button></div>
-                                    <form action="https://5qxzc2-13.myshopify.com/cart/add" method="post"
+                                    <form action="https://34evqt-19.myshopify.com/cart/add" method="post"
                                         class="flex-1"><input type="hidden" name="items[0][id]"
-                                            value="45000940224651"><input type="hidden" name="items[0][quantity]"
-                                            value="1"><input type="hidden" name="items[0][selling_plan]"
-                                            value="2033614987"><input type="hidden" name="items[1][id]"
-                                            value="45075839975563"><input type="hidden" name="items[1][quantity]"
-                                            value="1"><input type="hidden" name="return_to" value="/checkout"><button
-                                            id="main-buy-button" type="submit"
+                                            value="51699324420409"><input type="hidden" name="items[0][quantity]"
+                                            value="1"><input type="hidden" name="items[1][id]"
+                                            value="51699125125433"><input type="hidden" name="items[1][quantity]"
+                                            value="1"><input type="hidden" name="items[1][selling_plan]"
+                                            value="692317487417"><input type="hidden" name="return_to"
+                                            value="/checkout"><button id="main-buy-button" type="submit"
                                             class="w-full flex items-center justify-center h-12 lg:h-14 rounded-md text-base lg:text-lg font-semibold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">Buy
                                             Now</button></form>
                                 </div>
@@ -433,10 +434,14 @@
                 </main>
                 <div id="product-details" class="w-full bg-white pt-8 pb-0">
                     <div class="max-w-md mx-auto px-0 space-y-0">
-                        <img src="/assets/lavadora-detail-1.jpg" class="w-full h-auto block" alt="Detail 1">
-                        <img src="/assets/lavadora-detail-2.jpg" class="w-full h-auto block" alt="Detail 2">
-                        <img src="/assets/lavadora-detail-3.jpg" class="w-full h-auto block" alt="Detail 3">
-                        <img src="/assets/lavadora-detail-4.jpg" class="w-full h-auto block" alt="Detail 4">
+                        <a href="#anchor-point" class="block cursor-pointer"><img src="/assets/lavadora-detail-1.jpg"
+                                class="w-full h-auto block" alt="Detail 1"></a>
+                        <a href="#anchor-point" class="block cursor-pointer"><img src="/assets/lavadora-detail-2.jpg"
+                                class="w-full h-auto block" alt="Detail 2"></a>
+                        <a href="#anchor-point" class="block cursor-pointer"><img src="/assets/lavadora-detail-3.jpg"
+                                class="w-full h-auto block" alt="Detail 3"></a>
+                        <a href="#anchor-point" class="block cursor-pointer"><img src="/assets/lavadora-detail-4.jpg"
+                                class="w-full h-auto block" alt="Detail 4"></a>
                     </div>
                 </div>
                 <section class="py-16 bg-background border-t border-border" style="display: none;">
@@ -605,6 +610,21 @@
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            window.scrollToQuantity = function () {
+                const section = document.getElementById('scroll-target');
+                if (section) {
+                    const offset = 100;
+                    const bodyRect = document.body.getBoundingClientRect().top;
+                    const elementRect = section.getBoundingClientRect().top;
+                    const elementPosition = elementRect - bodyRect;
+                    const offsetPosition = elementPosition - offset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            };
             // Logic for desktop thumbnails
             document.querySelectorAll('.hidden.lg\\:flex button').forEach(btn => {
                 btn.addEventListener('click', function () {
@@ -645,6 +665,88 @@
                 });
             });
 
+
+            // --- QUANTITY SELECTION LOGIC ---
+            const quantityRadios = document.querySelectorAll('div[role="radiogroup"] button[role="radio"]');
+            const counterDisplay = document.querySelector('.flex.items-center.border.rounded-lg.flex-shrink-0 span');
+            const mainPriceDisplay = document.querySelector('.text-2xl.lg\\:text-3xl.font-bold.text-price-sale');
+            const originalPriceDisplay = document.querySelector('.text-sm.text-price-original.line-through');
+
+            // Input para o ID do produto principal (items[0][id])
+            const mainProductInput = document.querySelector('input[name="items[0][id]"]');
+
+            let currentQuantity = 1;
+            const pricingData = {};
+
+            // Mapa de Variants para Lavadora2 (Water Blaster)
+            const variantIds = {
+                1: '51699324420409',
+                2: '51699324453177',
+                3: '51699324485945',
+                4: '51699324518713',
+                5: '51699324551481'
+            };
+
+            // Initialize pricing data map and add listeners
+            quantityRadios.forEach(btn => {
+                const qty = parseInt(btn.value);
+                const label = btn.closest('label');
+                const sale = label.querySelector('.text-price-sale').innerText;
+                const original = label.querySelector('.text-price-original').innerText;
+                pricingData[qty] = { sale, original };
+
+                // Click listener for the button
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    updateState(qty);
+                });
+
+                // Click listener for the label (container)
+                label.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    updateState(qty);
+                });
+            });
+
+            function updateState(qty) {
+                currentQuantity = qty;
+
+                // Update Counter
+                if (counterDisplay) counterDisplay.innerText = qty;
+
+                // Update Variant ID based on Quantity selected
+                if (mainProductInput && variantIds[qty]) {
+                    mainProductInput.value = variantIds[qty];
+                }
+
+                // Update Top Prices
+                if (pricingData[qty]) {
+                    if (mainPriceDisplay) mainPriceDisplay.innerText = pricingData[qty].sale;
+                    if (originalPriceDisplay) originalPriceDisplay.innerText = pricingData[qty].original;
+                }
+
+                // Update Visuals
+                quantityRadios.forEach(btn => {
+                    const btnQty = parseInt(btn.value);
+                    const label = btn.closest('label');
+                    const isSelected = btnQty === qty;
+
+                    btn.setAttribute('aria-checked', isSelected);
+                    btn.setAttribute('data-state', isSelected ? 'checked' : 'unchecked');
+
+                    if (isSelected) {
+                        btn.innerHTML = '<span data-state="checked" class="flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle h-2.5 w-2.5 fill-current text-current"><circle cx="12" cy="12" r="10"></circle></svg></span>';
+                        label.classList.remove('border-border', 'hover:border-primary/50');
+                        label.classList.add('border-primary', 'bg-primary/5');
+                    } else {
+                        btn.innerHTML = '';
+                        label.classList.add('border-border', 'hover:border-primary/50');
+                        label.classList.remove('border-primary', 'bg-primary/5');
+                    }
+                });
+            }
+
             // Sticky Buy Button Logic
             const mainBtn = document.getElementById('main-buy-button');
             const stickyBtn = document.getElementById('sticky-cta-container');
@@ -671,7 +773,8 @@
 
     <div id="sticky-cta-container"
         class="fixed bottom-0 left-0 right-0 mx-auto w-full max-w-sm p-4 z-50 transform translate-y-full transition-transform duration-300 pointer-events-none">
-        <button onclick="document.getElementById('main-buy-button').scrollIntoView({behavior: 'smooth'})"
+        <button
+            onclick="document.getElementById('quantity-section').scrollIntoView({ behavior: 'smooth', block: 'start' });"
             class="w-full text-white text-center font-bold py-4 rounded-xl text-lg uppercase shadow-2xl transition-colors pointer-events-auto"
             style="background-color: #0D2A3A; border: 1px solid black;">
             BUY NOW
