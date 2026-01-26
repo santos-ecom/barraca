@@ -1,17 +1,33 @@
-// Hijacking logic removed since motoserra/index.html exists and is complete.
-
-
-// Original Essenza Theme Logic
 document.addEventListener('DOMContentLoaded', () => {
-    applyEssenzaTheme();
+    forceNovaGoodsLogo();
+
+    // Observer to prevent any other script from changing the logo back
+    const observer = new MutationObserver((mutations) => {
+        let shouldCheck = false;
+        for (const mutation of mutations) {
+            if (mutation.type === 'childList' || (mutation.type === 'attributes' && mutation.target.tagName === 'IMG')) {
+                shouldCheck = true;
+                break;
+            }
+        }
+        if (shouldCheck) forceNovaGoodsLogo();
+    });
+
+    const header = document.querySelector('header');
+    if (header) {
+        observer.observe(header, { childList: true, subtree: true, attributes: true, attributeFilter: ['src', 'srcset', 'style'] });
+    } else {
+        observer.observe(document.body, { childList: true, subtree: true });
+    }
 });
 
-function applyEssenzaTheme() {
+function forceNovaGoodsLogo() {
     const logoImgs = document.querySelectorAll('header img');
     logoImgs.forEach(img => {
-        // Enforce Nova Goods logo to prevent it from reverting to anything else
         if (!img.src.includes('novagoods_logo_shopify.png')) {
+            // console.log('Enforcing Nova Goods logo');
             img.src = '/assets/novagoods_logo_shopify.png';
+            img.srcset = ''; // Clear srcset
             img.style.maxHeight = '65px';
             img.style.width = 'auto';
         }
