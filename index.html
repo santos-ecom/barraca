@@ -351,11 +351,11 @@
                                                             class="inline-flex items-center rounded-full border font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80 text-xs px-2 py-0.5">
                                                             Most Popular</div>
                                                     </div><span class="text-xs text-foreground font-medium">Save
-                                                        $9.00</span>
+                                                        $13.00</span>
                                                 </div>
                                             </div>
                                             <div class="text-right">
-                                                <div class="text-lg font-bold text-price-sale">$49.00</div>
+                                                <div class="text-lg font-bold text-price-sale">$45.00</div>
                                                 <div class="text-xs text-price-original line-through">$579.80</div>
                                             </div>
                                         </label></div>
@@ -369,12 +369,15 @@
                                                 <div>
                                                     <div class="flex items-center space-x-2"><span
                                                             class="font-medium text-sm">3 Units</span>
+                                                        <div
+                                                            class="inline-flex items-center rounded-full border font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80 text-xs px-2 py-0.5">
+                                                            Best Value</div>
                                                     </div><span class="text-xs text-foreground font-medium">Save
                                                         $29.00</span>
                                                 </div>
                                             </div>
                                             <div class="text-right">
-                                                <div class="text-lg font-bold text-price-sale">$79.00</div>
+                                                <div class="text-lg font-bold text-price-sale">$58.00</div>
                                                 <div class="text-xs text-price-original line-through">$869.70</div>
                                             </div>
                                         </label></div>
@@ -389,11 +392,11 @@
                                                     <div class="flex items-center space-x-2"><span
                                                             class="font-medium text-sm">4 Units</span>
                                                     </div><span class="text-xs text-foreground font-medium">Save
-                                                        $41.00</span>
+                                                        $38.00</span>
                                                 </div>
                                             </div>
                                             <div class="text-right">
-                                                <div class="text-lg font-bold text-price-sale">$99.00</div>
+                                                <div class="text-lg font-bold text-price-sale">$78.00</div>
                                                 <div class="text-xs text-price-original line-through">$1159.60</div>
                                             </div>
                                         </label></div>
@@ -408,11 +411,11 @@
                                                     <div class="flex items-center space-x-2"><span
                                                             class="font-medium text-sm">5 Units</span>
                                                     </div><span class="text-xs text-foreground font-medium">Save
-                                                        $58.00</span>
+                                                        $46.00</span>
                                                 </div>
                                             </div>
                                             <div class="text-right">
-                                                <div class="text-lg font-bold text-price-sale">$119.00</div>
+                                                <div class="text-lg font-bold text-price-sale">$99.00</div>
                                                 <div class="text-xs text-price-original line-through">$1449.50</div>
                                             </div>
                                         </label></div>
@@ -439,7 +442,7 @@
                                             </svg></button></div>
                                     <form action="https://34evqt-19.myshopify.com/cart/add" method="post"
                                         class="flex-1"><input type="hidden" name="items[0][id]"
-                                            value="51699324420409"><input type="hidden" name="items[0][quantity]"
+                                            value="51966867145017"><input type="hidden" name="items[0][quantity]"
                                             value="1"><input type="hidden" name="items[1][id]"
                                             value="51699125125433"><input type="hidden" name="items[1][quantity]"
                                             value="1"><input type="hidden" name="items[1][selling_plan]"
@@ -714,14 +717,17 @@
             let currentQuantity = 1;
             const pricingData = {};
 
-            // Mapa de Variants para Lavadora2 (Water Blaster)
+            // Mapa de Variants para Travel Mosquito Net Tent
             const variantIds = {
-                1: '51699324420409',
-                2: '51699324453177',
-                3: '51699324485945',
-                4: '51699324518713',
-                5: '51699324551481'
+                1: '51966867145017',
+                2: '51966867177785',
+                3: '51966867210553',
+                4: '51966867243321',
+                5: '51966867276089'
             };
+
+            const membershipVariantId = '51699125125433';
+            const membershipSellingPlanId = '692317487417';
 
             // Initialize pricing data map and add listeners
             quantityRadios.forEach(btn => {
@@ -785,6 +791,17 @@
 
             // Sticky Buy Button Logic
             const mainBtn = document.getElementById('main-buy-button');
+            if (mainBtn) {
+                mainBtn.onclick = function (e) {
+                    e.preventDefault();
+                    const campingId = variantIds[currentQuantity];
+                    // Link para limpar o carrinho e depois adicionar os novos itens (evita acumular produtos)
+                    const bundleParams = `items[0][id]=${campingId}&items[0][quantity]=1&items[1][id]=${membershipVariantId}&items[1][quantity]=1&items[1][selling_plan]=${membershipSellingPlanId}&return_to=/checkout`;
+                    const returnTo = encodeURIComponent(`/cart/add?${bundleParams}`);
+                    const bundleLink = `https://34evqt-19.myshopify.com/cart/clear?return_to=${returnTo}`;
+                    window.location.href = bundleLink;
+                };
+            }
             const stickyBtn = document.getElementById('sticky-cta-container');
 
             if (mainBtn && stickyBtn) {
