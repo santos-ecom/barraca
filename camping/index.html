@@ -82,7 +82,7 @@
         !function (f, b, e, v, n, t, s) {
             if (f.fbq) return; n = f.fbq = function () {
                 n.callMethod ?
-                n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
             };
             if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
             n.queue = []; t = b.createElement(e); t.async = !0;
@@ -716,17 +716,14 @@
             let currentQuantity = 1;
             const pricingData = {};
 
-            // Mapa de Variants para Travel Mosquito Net Tent
-            const variantIds = {
-                1: '51966867145017',
-                2: '51966867177785',
-                3: '51966867210553',
-                4: '51966867243321',
-                5: '51966867276089'
+            // Checkout direto WooCommerce (pula a página do produto)
+            const checkoutUrls = {
+                1: 'https://espazzie.shop/checkout/?add-to-cart=8763',
+                2: 'https://espazzie.shop/checkout/?add-to-cart=8764',
+                3: 'https://espazzie.shop/checkout/?add-to-cart=8767',
+                4: 'https://espazzie.shop/checkout/?add-to-cart=8766',
+                5: 'https://espazzie.shop/checkout/?add-to-cart=8765'
             };
-
-            const membershipVariantId = '51699125125433';
-            const membershipSellingPlanId = '692317487417';
 
             // Initialize pricing data map and add listeners
             quantityRadios.forEach(btn => {
@@ -756,11 +753,6 @@
                 // Update Counter
                 if (counterDisplay) counterDisplay.innerText = qty;
 
-                // Update Variant ID based on Quantity selected
-                if (mainProductInput && variantIds[qty]) {
-                    mainProductInput.value = variantIds[qty];
-                }
-
                 // Update Top Prices
                 if (pricingData[qty]) {
                     if (mainPriceDisplay) mainPriceDisplay.innerText = pricingData[qty].sale;
@@ -788,17 +780,12 @@
                 });
             }
 
-            // Sticky Buy Button Logic
+            // Buy Button -> redireciona direto para checkout WooCommerce
             const mainBtn = document.getElementById('main-buy-button');
             if (mainBtn) {
                 mainBtn.onclick = function (e) {
                     e.preventDefault();
-                    const campingId = variantIds[currentQuantity];
-                    // Link para limpar o carrinho e depois adicionar os novos itens (evita acumular produtos)
-                    const bundleParams = `items[0][id]=${campingId}&items[0][quantity]=1&items[1][id]=${membershipVariantId}&items[1][quantity]=1&items[1][selling_plan]=${membershipSellingPlanId}&return_to=/checkout`;
-                    const returnTo = encodeURIComponent(`/cart/add?${bundleParams}`);
-                    const bundleLink = `https://34evqt-19.myshopify.com/cart/clear?return_to=${returnTo}`;
-                    window.location.href = bundleLink;
+                    window.location.href = checkoutUrls[currentQuantity];
                 };
             }
             const stickyBtn = document.getElementById('sticky-cta-container');
