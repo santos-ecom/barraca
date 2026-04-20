@@ -653,6 +653,9 @@
         </div>
     </div>
     <script>
+        // Captura UTMs IMEDIATAMENTE (antes do UTMify limpar a URL)
+        var _utmSnapshot = new URLSearchParams(window.location.search);
+
         document.addEventListener('DOMContentLoaded', function () {
             window.scrollToQuantity = function () {
                 const section = document.getElementById('scroll-target');
@@ -786,16 +789,34 @@
                 });
             }
 
-            // Utilitário: copia UTMs da landing page para a URL de destino
+            // Utilitário: copia UTMs para a URL de destino
+            // Fontes (em ordem de prioridade):
+            //   1. Snapshot capturado no carregamento (antes do UTMify limpar a URL)
+            //   2. localStorage do UTMify (fallback)
             function appendUtms(baseUrl) {
-                const utmParams = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
-                const currentParams = new URLSearchParams(window.location.search);
+                const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
                 const destUrl = new URL(baseUrl);
-                utmParams.forEach(function (key) {
-                    if (currentParams.has(key)) {
-                        destUrl.searchParams.set(key, currentParams.get(key));
+
+                // 1. Snapshot da URL original
+                utmKeys.forEach(function (key) {
+                    if (_utmSnapshot.has(key)) {
+                        destUrl.searchParams.set(key, _utmSnapshot.get(key));
                     }
                 });
+
+                // 2. Fallback: localStorage do UTMify
+                try {
+                    var stored = localStorage.getItem('utmify') || localStorage.getItem('__utmify');
+                    if (stored) {
+                        var parsed = JSON.parse(stored);
+                        utmKeys.forEach(function (key) {
+                            if (parsed[key] && !destUrl.searchParams.has(key)) {
+                                destUrl.searchParams.set(key, parsed[key]);
+                            }
+                        });
+                    }
+                } catch (e) { }
+
                 return destUrl.toString();
             }
 
