@@ -785,13 +785,26 @@
                 });
             }
 
-            // Buy Button -> redireciona direto para checkout WooCommerce
+            // Utilitário: copia UTMs da landing page para a URL de destino
+            function appendUtms(baseUrl) {
+                const utmParams = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+                const currentParams = new URLSearchParams(window.location.search);
+                const destUrl = new URL(baseUrl);
+                utmParams.forEach(function(key) {
+                    if (currentParams.has(key)) {
+                        destUrl.searchParams.set(key, currentParams.get(key));
+                    }
+                });
+                return destUrl.toString();
+            }
+
+            // Buy Button -> redireciona direto para checkout WooCommerce (com UTMs)
             const mainBtn = document.getElementById('main-buy-button');
             if (mainBtn) {
                 mainBtn.onclick = function (e) {
                     e.preventDefault();
                     fbq('track', 'InitiateCheckout');
-                    window.location.href = checkoutUrls[currentQuantity];
+                    window.location.href = appendUtms(checkoutUrls[currentQuantity]);
                 };
             }
             const stickyBtn = document.getElementById('sticky-cta-container');
