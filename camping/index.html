@@ -845,7 +845,7 @@
                         await fetch('https://espazzie.shop/?wc-ajax=add_to_cart', {
                             method: 'POST',
                             body: formData,
-                            credentials: 'omit' // Evita CORS issues se estiver em outro subdomínio, mas se estiver no mesmo, pega o cookie
+                            credentials: 'include' // IMPORTANTE: Envia os cookies da sessão para que o carrinho seja salvo para este usuário
                         });
                     } catch(err) {
                         console.error("Cart error", err);
