@@ -792,30 +792,38 @@
             // Utilitário: copia UTMs para a URL de destino
             // Fontes (em ordem de prioridade):
             //   1. Snapshot capturado no carregamento (antes do UTMify limpar a URL)
-            //   2. localStorage do UTMify (fallback)
+            //   2. Chaves individuais no localStorage (UTMify salva assim: utm_source, utm_medium, etc.)
+            //   3. JSON em localStorage (utmify / __utmify) como último fallback
             function appendUtms(baseUrl) {
                 const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
                 const destUrl = new URL(baseUrl);
 
-                // 1. Snapshot da URL original
                 utmKeys.forEach(function (key) {
-                    if (_utmSnapshot.has(key)) {
-                        destUrl.searchParams.set(key, _utmSnapshot.get(key));
-                    }
-                });
+                    var value = null;
 
-                // 2. Fallback: localStorage do UTMify
-                try {
-                    var stored = localStorage.getItem('utmify') || localStorage.getItem('__utmify');
-                    if (stored) {
-                        var parsed = JSON.parse(stored);
-                        utmKeys.forEach(function (key) {
-                            if (parsed[key] && !destUrl.searchParams.has(key)) {
-                                destUrl.searchParams.set(key, parsed[key]);
-                            }
-                        });
+                    // 1. Snapshot da URL original (capturado antes do UTMify limpar)
+                    if (_utmSnapshot.has(key)) {
+                        value = _utmSnapshot.get(key);
                     }
-                } catch (e) { }
+
+                    // 2. Chaves individuais no localStorage (como o UTMify realmente salva)
+                    if (!value) {
+                        try { value = localStorage.getItem(key); } catch (e) { }
+                    }
+
+                    // 3. JSON no localStorage (fallback genérico)
+                    if (!value) {
+                        try {
+                            var raw = localStorage.getItem('utmify') || localStorage.getItem('__utmify');
+                            if (raw) {
+                                var parsed = JSON.parse(raw);
+                                value = parsed[key] || null;
+                            }
+                        } catch (e) { }
+                    }
+
+                    if (value) destUrl.searchParams.set(key, value);
+                });
 
                 return destUrl.toString();
             }
