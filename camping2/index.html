@@ -725,14 +725,13 @@
             let currentQuantity = 1;
             const pricingData = {};
 
-            // Checkout direto WooCommerce (pula a página do produto)
-            // Usar o formato padrão do WooCommerce
-            const checkoutUrls = {
-                1: 'https://espazzie.shop/checkout/?add-to-cart=8763',
-                2: 'https://espazzie.shop/checkout/?add-to-cart=8764',
-                3: 'https://espazzie.shop/checkout/?add-to-cart=8767',
-                4: 'https://espazzie.shop/checkout/?add-to-cart=8766',
-                5: 'https://espazzie.shop/checkout/?add-to-cart=8765'
+            // Checkout direto WooCommerce (com AJAX para não perder UTMs)
+            const productIds = {
+                1: 8763,
+                2: 8764,
+                3: 8767,
+                4: 8766,
+                5: 8765
             };
 
             // Initialize pricing data map and add listeners
@@ -829,13 +828,31 @@
                 return destUrl.toString();
             }
 
-            // Buy Button -> redireciona direto para checkout WooCommerce (com UTMs)
+            // Buy Button -> adiciona via AJAX e redireciona direto para checkout WooCommerce (com UTMs)
             const mainBtn = document.getElementById('main-buy-button');
             if (mainBtn) {
-                mainBtn.onclick = function (e) {
+                mainBtn.onclick = async function (e) {
                     e.preventDefault();
                     fbq('track', 'InitiateCheckout');
-                    window.location.href = appendUtms(checkoutUrls[currentQuantity]);
+                    
+                    const originalText = mainBtn.innerText;
+                    mainBtn.innerText = "Processing...";
+                    
+                    try {
+                        const formData = new FormData();
+                        formData.append('product_id', productIds[currentQuantity]);
+                        formData.append('quantity', 1);
+                        
+                        await fetch('https://espazzie.shop/?wc-ajax=add_to_cart', {
+                            method: 'POST',
+                            body: formData,
+                            credentials: 'omit' // Evita CORS issues se estiver em outro subdomínio, mas se estiver no mesmo, pega o cookie
+                        });
+                    } catch(err) {
+                        console.error("Cart error", err);
+                    }
+                    
+                    window.location.href = appendUtms('https://espazzie.shop/checkout/');
                 };
             }
             const stickyBtn = document.getElementById('sticky-cta-container');
