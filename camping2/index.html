@@ -726,14 +726,13 @@
             const pricingData = {};
 
             // Checkout direto WooCommerce (pula a página do produto)
-            // IMPORTANTE: usar /checkout/ID/ (path) em vez de ?add-to-cart=ID (query)
-            // O formato query causa redirect 302 server-side que apaga todas as UTMs
+            // Usar o formato padrão do WooCommerce
             const checkoutUrls = {
-                1: 'https://espazzie.shop/checkout/8763/',
-                2: 'https://espazzie.shop/checkout/8764/',
-                3: 'https://espazzie.shop/checkout/8767/',
-                4: 'https://espazzie.shop/checkout/8766/',
-                5: 'https://espazzie.shop/checkout/8765/'
+                1: 'https://espazzie.shop/checkout/?add-to-cart=8763',
+                2: 'https://espazzie.shop/checkout/?add-to-cart=8764',
+                3: 'https://espazzie.shop/checkout/?add-to-cart=8767',
+                4: 'https://espazzie.shop/checkout/?add-to-cart=8766',
+                5: 'https://espazzie.shop/checkout/?add-to-cart=8765'
             };
 
             // Initialize pricing data map and add listeners
